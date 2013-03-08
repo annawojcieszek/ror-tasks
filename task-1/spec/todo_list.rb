@@ -55,4 +55,23 @@ describe TodoList do
       list.completed?(0).should be_true
     end
   end
+  
+  context "with many items" do
+    let(:items) { [item_description] }
+    
+    it { should_not be_empty }
+    
+    it "should return of completed items" do
+      
+    end
+    
+    it "should remove of an individual item" do
+      item.delete
+      
+    end
+    
+    it "should sort the items by name" do
+      items.should_receive(:order).and_return
+    end
+  end
 end
