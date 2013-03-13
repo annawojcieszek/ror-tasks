@@ -102,5 +102,14 @@ class TodoList
   def [](item)
     @items[item]
   end
+  
+  def add_sign(item)
+    #@items.select {|item| item.completed == false}.map! {|i| "[ ]" + i.to_s }
+    if @items[item].completed == true 
+      @items[item] = "[x] " + @items[item].to_s
+    else
+      @items[item] = "[ ] " + @items[item].to_s
+    end
+  end
 
 end

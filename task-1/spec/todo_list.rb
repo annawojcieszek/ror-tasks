@@ -118,6 +118,14 @@ describe TodoList do
       list[1].to_s.should == item_description
 
     end
+    
+    it "should converse list to text with default format" do
+      list.complete(0)
+      list.add_sign(0)
+      list.add_sign(1)
+      list.first.to_s.should == "[x] Buy toilet paper"
+      list.last.to_s.should == "[ ] Iron Marek's shirts"
+    end
 
 
   end
