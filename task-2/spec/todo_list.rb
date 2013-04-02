@@ -30,6 +30,7 @@ describe TodoList do
   end
 
   it "should persist the added item" do
+    stub(database).items_count {1}
     mock(database).add_todo_item(item) { true }
     mock(database).get_todo_item(0) { item }
 
@@ -48,6 +49,7 @@ describe TodoList do
   end
 
   it "should fetch the first item from the DB" do
+    stub(database).items_count {1}
     mock(database).get_todo_item(0) { item }
     list.first.should == item
 
@@ -74,4 +76,47 @@ describe TodoList do
       list << item
     end
   end
+
+  it "should return nil for the first and the last item if the DB is empty" do
+  stub(database).items_count { 0 }
+
+  list.first.should == nil
+  list.last.should == nil
+  end
+
+  context "nil item" do
+  let(:item)  { nil }
+
+    it "should raise an exception when changing the item state if the item is nil" do
+    
+    
+    expect{list.toggle_state(4)}.to raise_error(IllegalArgument) 
+    end 
+
+    it "should not accept a nil item" do
+    end
+  end
+
+  it "should not accept an item with too short (but not empty) title" do
+    expect(actual).to match(/[0-9a-z]{3,}/)
+  end
+
+  it "should accept of an item with missing description" do
+  end
+
+  it "should notify a social network if an item is added to the list (you have to provide the social network proxy in the constructor)" do
+  end
+
+  it "should notify a social network if an item is completed" do
+  end
+
+  it "should not notify the social network if the title of the item is missing" do
+  end
+
+  it "should notify the social network if the body of the item is missing" do
+  end
+
+  it "should cut title of the item when notifying the SN if it is longer than 255 chars (both when adding and completing the item)" do
+  end
+
 end
