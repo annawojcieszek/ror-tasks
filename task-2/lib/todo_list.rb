@@ -6,6 +6,7 @@ class TodoList
       raise IllegalArgument
     end
    @db = args[:db]
+   @network = args[:social_network]
   end
   
   def empty?
@@ -17,10 +18,13 @@ class TodoList
   end
 
   def <<(item)
-    if item.title == ""
+    if item.nil?
+      nil
+    elsif item.title == "" || item.title.size <= 3
       nil
     else 
-      @db.add_todo_item(item)    
+      @db.add_todo_item(item)  
+      @network.notify(item)  
     end
   end
 
@@ -50,6 +54,10 @@ class TodoList
     else
       @db.get_todo_item(@db.items_count-1)
     end
+  end
+  def completed?(item)
+    @db.todo_item_completed?(item)
+    @network.notify(item)
   end
 
   
