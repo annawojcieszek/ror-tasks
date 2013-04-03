@@ -59,6 +59,10 @@ class TodoList
     @db.todo_item_completed?(item)
     @network.notify(item)
   end
+  
+  def title_length(item)
+    item.title
+  end
 
   
 end

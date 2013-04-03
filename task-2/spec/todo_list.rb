@@ -151,9 +151,22 @@ describe TodoList do
     list.completed?(0).should be_true
   end
 
-  it "should cut title of the item when notifying the SN if it is longer than 255 chars (both when adding and completing the item)" do
+  context "title is longer than 255 chars" do
+    let(:title)               { "W sklepie Cubus startuja nowe promocje na wszystkich dzialach. Przymierzajac spodnie LC7507 i wypelniajac krotka ankiete, otrzymasz bon o wartosci  50 PLN* na zakup dowolnej pary spodni!  Zapraszamy i zachecamy do podzielenia sie z nami Twoja sugestia! Flagowa oferta jest oferta 3 w cenie 2 na cala kolekcje dziecieca i meska." }
     
-    list<< item
+    it "should cut title of the item when notifying the SN if it is longer than 255 chars (both when adding and completing the item)" do
+      stub(database).items_count {1}
+      mock(network).notify(item) { true }
+      mock(database).add_todo_item(item) { true }
+      mock(database).get_todo_item(0) { item }
+      mock(database).todo_item_completed?(0) { false }
+      mock(database).complete_todo_item(0,true) { true }
+      
+      list << item
+      list.toggle_state(0)
+      item.title.length.should <= 255
+    end
   end
+    
 
 end
