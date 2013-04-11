@@ -452,7 +452,7 @@ that constitute the system. Use RSpec to write the tests.
 The implementation should be stored in `wallet` directory in the main directory
 of this project. It should be developed in a separate git branch called `project`.
 The acceptance test should be stored in `wallet/tests/acceptance` directory.
-
+#devblog.avdi.org -> pierwszy link
 
 ### Part 2 - unit tests
 
